@@ -13,6 +13,7 @@
 		626C462D1A29BDC700078F6F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 626C462C1A29BDC700078F6F /* Images.xcassets */; };
 		626C46301A29BDC700078F6F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 626C462E1A29BDC700078F6F /* LaunchScreen.xib */; };
 		626C463C1A29BDC700078F6F /* myPDFTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626C463B1A29BDC700078F6F /* myPDFTests.swift */; };
+		62F684D41A2B4BFD002B7E83 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F684D31A2B4BFD002B7E83 /* Date.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +37,7 @@
 		626C46351A29BDC700078F6F /* myPDFTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = myPDFTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		626C463A1A29BDC700078F6F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		626C463B1A29BDC700078F6F /* myPDFTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myPDFTests.swift; sourceTree = "<group>"; };
+		62F684D31A2B4BFD002B7E83 /* Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +82,7 @@
 				626C46251A29BDC700078F6F /* AppDelegate.swift */,
 				626C46271A29BDC700078F6F /* ViewController.swift */,
 				626C46291A29BDC700078F6F /* Main.storyboard */,
+				62F684D31A2B4BFD002B7E83 /* Date.swift */,
 				626C462C1A29BDC700078F6F /* Images.xcassets */,
 				626C462E1A29BDC700078F6F /* LaunchScreen.xib */,
 				626C46231A29BDC700078F6F /* Supporting Files */,
@@ -213,6 +216,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				626C46281A29BDC700078F6F /* ViewController.swift in Sources */,
+				62F684D41A2B4BFD002B7E83 /* Date.swift in Sources */,
 				626C46261A29BDC700078F6F /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -407,6 +411,7 @@
 				626C46411A29BDC700078F6F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		626C46421A29BDC700078F6F /* Build configuration list for PBXNativeTarget "myPDFTests" */ = {
 			isa = XCConfigurationList;
@@ -415,6 +420,7 @@
 				626C46441A29BDC700078F6F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

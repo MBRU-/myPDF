@@ -8,6 +8,7 @@
 
 import UIKit
 import Foundation
+
 @objc (ViewController)
 
 class ViewController: UIViewController {
@@ -51,17 +52,9 @@ class ViewController: UIViewController {
             println("Failed")
         }
         
-//        var theFont = UIFont.systemFontOfSize(22)
-        var theFont = UIFont(name: "Arial", size: 12)!
-        let textAllignement = NSTextAlignment.Right
-        
-        let attributes = [NSFontAttributeName:theFont,NSForegroundColorAttributeName: UIColor.blackColor()]
-        
-        // Prepare the text using a Core Text Framesetter.
-        var myString = CFAttributedStringCreate(nil , pdfTextView.text, attributes)
-        
-        var frameSetter = CTFramesetterCreateWithAttributedString(myString)
-            
+//        var frameSetter = CTFramesetterCreateWithAttributedString(myString)
+        var frameSetter = CTFramesetterCreateWithAttributedString(pdfTextView.attributedText)
+    
          if (frameSetter != nil)   {
         
             // Create the PDF context using the default page size of 612 x 792.
@@ -126,40 +119,67 @@ class ViewController: UIViewController {
     func drawPageNumber ( pageNumber: Int) {
         let pageString:NSString = "Page \(pageNumber)"
 
-        
         let theFont = UIFont.systemFontOfSize(14)
         let maxSize = CGSizeMake(612, 72);
-        
         let attributes:NSDictionary = [NSFontAttributeName:theFont]
-  
         let pageStringSize = pageString.sizeWithAttributes([NSFontAttributeName:theFont])
-        
         let stringRect = CGRectMake(((612.0 - pageStringSize.width) / 2.0),720.0 + ((72.0 - pageStringSize.height) / 2.0),pageStringSize.width,pageStringSize.height)
         
-      //     pageString.drawInRect:stringRect withFont:theFont
         pageString.drawInRect(stringRect, withAttributes: attributes)
     }
 
     func setText() {
-        pdfTextView.textColor = UIColor.darkTextColor()
-        pdfTextView.textAlignment = NSTextAlignment.Left
-        let title = "IBM Client Center Research - Client Feedback - \n\n"
-        let date = "Date: \t 22.12.2014\n\n"
-        let client = "Client: \tUBS Private Banking\n\n"
-        let eventMgr = "Event Mgr: \tSSC\n\n"
-        let evalAverage = "Evaluation Average: \t 1.1\n\n"
-        let header = "#\tEval.\t\tDate-Time"
-        let evalAll = ["2\t 22.12.2014 - 16:45","2\t 22.12.2014 - 16:46","1\t 22.12.2014 - 16:47","2\t 22.12.2014 - 16:48","2\t 22.12.2014 - 16:49"]
         
-        pdfTextView.text = ""
-        pdfTextView.text = pdfTextView.text + title + date + client + eventMgr + evalAverage + header
+        let titleFont = UIFont(name: "Helvetica Bold", size: 14)!
+        let textFont = UIFont(name: "Helvetica Neue", size: 12)!
+        
+        let titleParagraph = NSMutableParagraphStyle()
+        
+        let textParagraph = NSMutableParagraphStyle()
+        textParagraph.alignment = NSTextAlignment.Left
+        
+//        textParagraph.firstLineHeadIndent = 100.0
+//        textParagraph.headIndent = 110.0
+//        textParagraph.defaultTabInterval = 150.0
+        
+        var titleAttributes = [NSFontAttributeName:titleFont,NSForegroundColorAttributeName: UIColor.blackColor(), NSParagraphStyleAttributeName: titleParagraph]
+        
+        var textAttributes = [NSFontAttributeName:textFont,NSForegroundColorAttributeName: UIColor.blackColor(), NSParagraphStyleAttributeName: textParagraph]
+        
+        let title = "IBM Client Center Research - Client Feedback - \n\n"
+        let date =  Date.toString(dateOrTime: kDateFormat)  + "\n\n"
+        let client = "UBS Private Banking\n\n"
+        let eventMgr = "SSC\n\n"
+        let evalAverage = "1.1\n\n"
+        let header = "#\tEval.\t\tDate-Time"
+        let evalAll = ["2\t1\t","2\t1\t","1\t2\t","1\t1\t","2\t1\t"]
+        var attributedText = NSAttributedString(string:"",attributes: titleAttributes)
+        var theString = NSMutableAttributedString(attributedString: attributedText)
+        
+        theString.appendAttributedString(NSAttributedString(string:"IBM Client Center Research - Client Feedback - \n\n",attributes: titleAttributes))
+        theString.appendAttributedString(NSAttributedString(string:"Date: \t",attributes: titleAttributes))
+        theString.appendAttributedString(NSAttributedString(string:date,attributes: textAttributes))
+        
+        theString.appendAttributedString(NSAttributedString(string:"Client: \t",attributes: titleAttributes))
+        theString.appendAttributedString(NSAttributedString(string:client,attributes: textAttributes))
+        
+        theString.appendAttributedString(NSAttributedString(string:"Event Mgr: \t",attributes: titleAttributes))
+        theString.appendAttributedString(NSAttributedString(string:eventMgr,attributes: textAttributes))
+        
+        theString.appendAttributedString(NSAttributedString(string:"Evaluation Average: \t",attributes: titleAttributes))
+        theString.appendAttributedString(NSAttributedString(string:evalAverage,attributes: textAttributes))
+
+        theString.appendAttributedString(NSAttributedString(string:"#\tEval.\tDate-Time",attributes: titleAttributes))
         
         var i = 1
-        for eval in evalAll {
-            pdfTextView.text = pdfTextView.text + "\n" + "\(i): \t" + eval
+    
+        for eval  in evalAll {
+            let str = "\n" + "\(i): \t" + eval + Date.toString(dateOrTime: kTimeFormat)
+            var subString = NSAttributedString(string: str , attributes: textAttributes)
+            theString.appendAttributedString(subString)
             i++
         }
-        
+        pdfTextView.attributedText = theString
     }
 
     
